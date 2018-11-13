@@ -26,6 +26,7 @@ LABEL image.project.groupId=$PROJECT_GROUPID
 LABEL image.project.version=$PROJECT_VERSION
 
 COPY --chown=1000:1000 docker /
+COPY --chown=1000:1000 docker-*.yml /
 
 RUN wget -O zipkin-dependencies.jar 'https://search.maven.org/remote_content?g=io.zipkin.dependencies&a=zipkin-dependencies&v=LATEST'
 
