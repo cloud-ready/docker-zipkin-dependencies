@@ -18,6 +18,7 @@ services:
 
 networks:
   local-network:
+    external: true
     driver: bridge
     ipam:
       driver: default
@@ -26,7 +27,6 @@ networks:
 
 volumes:
   data:
-    external: true
     driver: local
     driver_opts:
       type: none
