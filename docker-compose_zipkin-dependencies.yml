@@ -11,21 +11,18 @@ services:
     - ES_HOSTS=${ES_HOSTS:-http://192.168.3.40:9200}
     networks:
       local-network:
-        ipv4_address: ${IPV4_ADDRESS:-172.16.238.81}
+        ipv4_address: ${IPV4_ADDRESS:-172.18.238.90}
     restart: always
     volumes:
     - data:/data
 
 networks:
   local-network:
-    external: true
     driver: bridge
-    enable_ipv6: true
     ipam:
       driver: default
       config:
-      - subnet: 172.16.238.0/24
-      #- subnet: 2001:3984:3989::/64
+      - subnet: 172.18.0.0/16
 
 volumes:
   data:
