@@ -1,4 +1,3 @@
-
 version: '2.1'
 services:
   image:
@@ -8,11 +7,22 @@ services:
     container_name: ${CONTAINER_HOST_NAME:-zipkin-dependencies}
     hostname: ${CONTAINER_HOST_NAME:-zipkin-dependencies}
     environment:
-      - STORAGE_TYPE=${STORAGE_TYPE:-elasticsearch}
-      - ES_HOSTS=${ES_HOSTS:-http://192.168.3.40:9200}
+    - STORAGE_TYPE=${STORAGE_TYPE:-elasticsearch}
+    - ES_HOSTS=${ES_HOSTS:-http://192.168.3.40:9200}
     restart: always
     volumes:
     - data:/data
+
+networks:
+  local-network:
+    external: true
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+      #- subnet: 2001:3984:3989::/64
 
 volumes:
   data:
