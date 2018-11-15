@@ -25,12 +25,15 @@ LABEL image.project.artifactId=$PROJECT_ARTIFACTID
 LABEL image.project.groupId=$PROJECT_GROUPID
 LABEL image.project.version=$PROJECT_VERSION
 
-COPY --chown=1000:1000 docker /
+USER root
 
 RUN wget -O zipkin-dependencies.jar 'https://search.maven.org/remote_content?g=io.zipkin.dependencies&a=zipkin-dependencies&v=LATEST'
+RUN sudo apk add busybox-suid
 
 VOLUME /data
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY docker /
 
-CMD exec java -jar zipkin-dependencies.jar
+RUN crontab /zipkin-dependencies-cron
+
+CMD crond -f -l 8
